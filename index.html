@@ -7,9 +7,60 @@
     <link rel="stylesheet" href="library.css">
 </head>
 <body>
-    <div id="books-container">
-1
+    <div id="header">
+        <div class="header-icon-and-title">
+            <img src="images/menu_book_40dp_48752C_FILL0_wght400_GRAD0_opsz40.svg" alt="">
+            <div class="header-title">Valou's library</div>
+        </div>
     </div>
+
+    <div id="add-book-button-container">
+        <button class="show-dialog-button">New book</button>
+    </div>
+
+
+    <div id="books-collection-container">
+    </div>
+
+    <dialog>
+        <input type="submit" value="Add book">
+        <button autofocus>Close</button>
+        <p>Please insert the information of the book here.</p>
+        
+        <form action="" class="modal-form-container" method="post">
+            <div class="modal-label-input">
+                <label for="book-name">Book</label>
+                <input type="text" id="book-name">
+            </div>
+            <div class="modal-label-input">
+                <label for="book-author">Author</label>
+                <input type="text" id="book-author">
+            </div>
+            <div class="modal-label-input">
+                <label for="book-pages">Pages</label>
+                <input type="text" id="book-pages">
+            </div>
+            <p>Did you read the book?</p>
+            <div class="modal-label-input">
+                <div class="radio-container">
+                    <input type="radio">
+                    <label for="">Yes</label></div>
+                <div class="radio-container">
+                    <input type="radio">
+                    <label for="">No</label></div>
+            </div>
+            <p>Did you like the book?</p>
+            <div class="modal-label-input">
+                <div class="radio-container">
+                    <input type="radio">
+                    <label for="">Yes</label></div>
+                <div class="radio-container">
+                    <input type="radio">
+                    <label for="">No</label></div>
+            </div>
+        </form>
+      </dialog>
+
     <script src="library.js"></script>
 </body>
 </html>
