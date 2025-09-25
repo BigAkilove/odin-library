@@ -1,29 +1,22 @@
-<<<<<<< HEAD
 const myLibrary = [{
     title: "L'Etranger",
     author: "Albert Camus",
     pages: 191,
     isRead: true,
     isLiked: true
-}/* ,{
-    title:"La Peste",
-    author: "Albert Camus", 
-    pages: 341, 
-    isRead: false, 
-    isLiked: undefined
-}, */];
+}];
 
-function Book(title, author, pages, isRead, isLiked) {
+function Book(title, author, pages, read, liked) {
     this.title = title;
     this.author = author;
     this.pages = pages;
-    this.isRead = isRead;
-    this.isLiked = isLiked
+    this.isRead = read;
+    this.isLiked = liked
     this.changeRead = function(boolean) {
         if (boolean === true) {
-            this.isRead = 'true';
+            this.isRead = true;
             }
-        else this.isRead === 'false';
+        else this.isRead === false;
         booksHTML = ''
         createHTML();
     }
@@ -41,6 +34,8 @@ let booksHTML = document.querySelector('#books-collection-container')
 
 
 function createHTML() {
+    booksHTML.innerHTML = ''
+
     for (let i = 0; i < myLibrary.length; i++) {
         let book = myLibrary[i];
         let read, liked
@@ -66,10 +61,9 @@ function createHTML() {
     }
 }
 
-
 createHTML();
 
-const dialog = document.querySelector("dialog");
+/* const dialog = document.querySelector("dialog");
 const showButton = document.querySelector('.show-dialog-button');
 const closeButton = document.querySelector("dialog button");
 const form = document.querySelector('.modal-form-container')
@@ -94,70 +88,40 @@ form.addEventListener('submit', function(e) {
 
 form.addEventListener('click', function(e) {
    console.log(1)
-=======
-const myLibrary = [];
+}) */
 
-function Book(name, author, image, pageCount) {
-  // the constructor...
-  this.bookName = name,
-  this.author = author,
-  this.image = image
-  this.pageCount = pageCount,
-  this.idCode = crypto.randomUUID()
+function getDatafromForm () {
+    const arrayData = Array.from(document.querySelectorAll('#second-dialog form input'));
+
+    let formData = [];
+
+    arrayData.forEach(element => {
+        let currentBook = {
+            id : element.id,
+            value : element .value
+        }
+        formData.push(currentBook)
+    }); 
+
+    const newBook = new Book(formData[0].value,formData[1].value,formData[2].value);
+    addBookToLibrary(newBook)
+    createHTML()
+    
 }
 
-const etranger = new Book("L'Etranger","Albert Camus", 'images/camus-etranger.jpg',159);
-const book1984 = new Book('1984','Georges Orwell','images/1984-orwell.jpg',376);
+const secondDialog = document.querySelector('#second-dialog')
 
-function addBookToLibrary(book) {
-  // take params, create a book then store it in the array
-    myLibrary.push(book);
-    console.log(myLibrary);
-}
-
-addBookToLibrary(etranger);
-addBookToLibrary(book1984);
-
-function removeBookFromLibrary(book) {
-    const index = myLibrary.indexOf(book);
-    myLibrary.splice(index,1);
-}
-
-const documentContent = document.getElementById('content');
-
-myLibrary.forEach(function (book) {
-    let card = document.createElement('div');
-    card.classList.add('card');
-
-    let imageNameAuthorContainer = document.createElement('div');
-    imageNameAuthorContainer.classList.add('image-name-author-container');
-
-    let nameAuthorContainer = document.createElement('div');
-    nameAuthorContainer.classList.add('name-author-container');
-
-    let cardBookName = document.createElement('div');
-    cardBookName.classList.add('card-book-name');
-    cardBookName.textContent = book.bookName;
-
-    let cardBookAuthor = document.createElement('div');
-    cardBookAuthor.classList.add('card-book-author');
-    cardBookAuthor.textContent = book.author;
-
-    let cardImage = document.createElement('img');
-    cardImage.classList.add('book-image');
-    cardImage.src = book.image;
-
-    let cardBookPageCount = document.createElement('div');
-    cardBookPageCount.classList.add('card-book-page-count');
-    cardBookPageCount.textContent = `Page count: ${book.pageCount}`;
-
-    nameAuthorContainer.appendChild(cardBookName);
-    nameAuthorContainer.appendChild(cardBookAuthor);
-    imageNameAuthorContainer.appendChild(cardImage);
-    imageNameAuthorContainer.appendChild(nameAuthorContainer)
-    card.appendChild(imageNameAuthorContainer)
-    card.appendChild(cardBookPageCount);
-
-    documentContent.appendChild(card);
->>>>>>> 7ec92bbf888cb14d050a2aaf6c45a64830e815a5
+const secondDialogButton = document.querySelector('#second-dialog-button')
+secondDialogButton.addEventListener('click', () => {
+    secondDialog.showModal()
 })
+
+const secondDialogCloseButton = document.querySelector('#second-dialog-close-button');
+secondDialogCloseButton.addEventListener('click', (e) => {
+    e.preventDefault();
+
+    getDatafromForm()
+    secondDialog.close()
+})
+
+

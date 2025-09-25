@@ -19,10 +19,9 @@
     </div>
 
 
-    <div id="books-collection-container">
-    </div>
+    <div id="books-collection-container"></div>
 
-    <dialog>
+    <!-- <dialog>
         <input type="submit" value="Add book">
         <button autofocus>Close</button>
         <p>Please insert the information of the book here.</p>
@@ -59,8 +58,25 @@
                     <label for="">No</label></div>
             </div>
         </form>
-      </dialog>
+      </dialog> -->
 
+    <dialog id="second-dialog">
+        <button id="second-dialog-close-button">Close second dialog</button>
+
+        <form action="">
+            <label for="bookname">Name of book:</label>
+            <input id="bookname" type="text">
+
+            <label for="authorname">Author:</label>
+            <input id="authorname" type="text">
+
+            <label for="pagenumber">Length:</label>
+            <input id="pagenumber" type="text">
+        </form>
+    </dialog>
+
+    <button id="second-dialog-button">Second Dialog</button>
+    
     <script src="library.js"></script>
 </body>
 </html>
