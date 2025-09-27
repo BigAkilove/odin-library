@@ -5,24 +5,17 @@ function Book(title, author, pages, read, liked) {
     this.author = author;
     this.pages = pages;
     this.isRead = read;
+    this.readSentence = 'a';
     this.isLiked = liked;
     this.id = crypto.randomUUID();
-    this.changeRead = function(boolean) {
-        if (boolean === true) {
-            this.isRead = true;
-            }
-        else this.isRead === false;
-        booksHTML = ''
-        createHTML();
-    }
 }
 
 function addBookToLibrary(book) {
     myLibrary.push(book);
 }
 
-const lEtranger = new Book("L'étranger", 'Albert Camus', 191, "read", "yes");
-const laPeste = new Book ("La Peste","Albert Camus", 341, "not read", "unknown");
+const lEtranger = new Book("L'étranger", 'Albert Camus', 191, true, "Yes.");
+const laPeste = new Book ("La Peste","Albert Camus", 341, false, "Not finished.");
 
 addBookToLibrary(lEtranger);
 addBookToLibrary(laPeste);
@@ -53,8 +46,9 @@ function createHTML() {
             </div>
             <div class="book-description">
                 <div class="book-pages">Length: ${book.pages} pages</div>
-                <div class="book-is-read">${read}</div>
-                <div class="book-is-liked">${book.isLiked}</div>
+                <div class="book-is-read">${book.readSentence}</div>
+                <button class="switch-read-button" data-id=${book.id}>Switch read</button>
+                <div class="book-is-liked">Liked: ${book.isLiked}</div>
             </div>
         </div>
         `
@@ -80,6 +74,7 @@ function getDatafromForm () {
     addBookToLibrary(newBook);
     createHTML();
     removeBook();
+    switchRead();
 }
 
 const bookDialog = document.querySelector('#book-dialog');
@@ -108,6 +103,7 @@ function removeBook () {
                 myLibrary.splice(index,1);
                 createHTML();
                 removeBook();
+                switchRead();
             }
         })
     })
@@ -115,3 +111,37 @@ function removeBook () {
 )}
 
 removeBook()
+
+function switchRead () {
+    const allReadButtons = document.querySelectorAll('.switch-read-button');
+    allReadButtons.forEach((button) => {
+        button.addEventListener('click', (event) => {
+            let idOfButton = event.target.attributes[1].value;
+            console.log(idOfButton)
+
+            myLibrary.forEach((book) => {
+                if (idOfButton === book.id) {
+                    book.changeRead();
+                }
+            })
+        })
+    })
+}
+
+switchRead();
+
+Book.prototype.changeRead = function () {
+
+    if (this.isRead === true) {
+        this.isRead = false;
+        this.readSentence = "Not read.";
+        createHTML();
+        switchRead();
+    } else if (this.isRead === false) { 
+        this.isRead = true;
+        this.readSentence = 'Read.';
+        createHTML();
+        switchRead();
+    }
+    console.log(this.isRead);
+}
