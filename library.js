@@ -136,11 +136,13 @@ Book.prototype.changeRead = function () {
         this.isRead = false;
         this.readSentence = "Not read.";
         createHTML();
+        removeBook();
         switchRead();
     } else if (this.isRead === false) { 
         this.isRead = true;
         this.readSentence = 'Read.';
         createHTML();
+        removeBook();
         switchRead();
     }
     console.log(this.isRead);
